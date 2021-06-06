@@ -114,13 +114,3 @@ class ChannelSearcher():
         x = col.insert_many(self.__channel_details_container)
         print(x.inserted_ids)
         return
-
-
-a = ChannelSearcher(keyword="김치 먹방", region="한국", min_subcriber=100000, max_subscriber=10000000000)
-
-a.search_channel_list()
-a.search_video_for_channel_id_list()
-print(a.get_channel_id_list())
-c = a.search_channel_detail()
-print(a.get_channel_details_list())
-a.insert_influencer_to_db()
