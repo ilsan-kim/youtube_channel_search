@@ -2,16 +2,19 @@ from collections import OrderedDict
 from math import ceil
 
 from retrying import retry
-from googleapiclient.errors import HttpError
 
 from service.public_func import (
     get_id_list, get_channel_details
 )
 from service.decorator_func import check_key_quote
 from service.key_changer import KeySelector
+from model import schema
+from databases import db
+
 
 
 class ChannelSearcher():
+    db = db
     __key_selector = KeySelector()
     __channel_id_container = []
     __channel_details_container = []
@@ -59,7 +62,7 @@ class ChannelSearcher():
     @retry
     @check_key_quote
     def search_channel_list(self):
-        print(self.get_api_key())
+        print("search_channel_list : ", self.get_api_key())
         page_token = " "
         while page_token:
             print(page_token)
@@ -76,7 +79,7 @@ class ChannelSearcher():
     @retry
     @check_key_quote
     def search_video_for_channel_id_list(self):
-        print(self.get_api_key())
+        print("search_video_for_channel_id_list : ", self.get_api_key())
         page_token = " "
         for _ in range(10):
             print(page_token)
@@ -93,7 +96,7 @@ class ChannelSearcher():
     @retry
     @check_key_quote
     def search_channel_detail(self):
-        print(self.get_api_key())
+        print("search_channel_detail : ", self.get_api_key())
         loop_count = ceil(len(self.__channel_id_container)/50)
         count = 0
         for i in range(loop_count):
@@ -106,12 +109,18 @@ class ChannelSearcher():
             count += 50
         return self.__channel_details_container
 
+    def insert_influencer_to_db(self):
+        col = db['influencer']
+        x = col.insert_many(self.__channel_details_container)
+        print(x.inserted_ids)
+        return
 
-a = ChannelSearcher(keyword="기초 뷰티", region="한국", min_subcriber=100000, max_subscriber=10000000000)
+
+a = ChannelSearcher(keyword="김치 먹방", region="한국", min_subcriber=100000, max_subscriber=10000000000)
 
 a.search_channel_list()
 a.search_video_for_channel_id_list()
 print(a.get_channel_id_list())
-a.search_channel_detail()
+c = a.search_channel_detail()
 print(a.get_channel_details_list())
-print(len(a.get_channel_details_list()))
+a.insert_influencer_to_db()

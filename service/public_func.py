@@ -59,10 +59,7 @@ def get_channel_metadata(min_subscriber: int, max_subscriber: int, items: list, 
             "channel_title": channel_title,
             "thumbnail_url": thumbnail_url,
             "country": country,
-            "subscriber_count": subscriber_count,
-            "avg_view": avg_view,
-            "loyalty_rate": loyalty_rate,
-            "engagement_rate": engagement_rate
+            "subscriber_count": subscriber_count
         }
         container.append(item_detail)
     return container
