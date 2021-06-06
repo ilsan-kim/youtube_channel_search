@@ -3,9 +3,9 @@ class KeySelector():
     __API_KEY = {
         3: "AIzaSyCmOvTsBo_g__NBVQtCOrUQEmbR1KlRcds",
         2: "AIzaSyC93iswqAWhnEW8M7WJX96IGSYBCCUUZis",
-        5: "AIzaSyA48pQnfHZ8ka43eraiJNWDzuzCmLzgWGw",
+        1: "AIzaSyA48pQnfHZ8ka43eraiJNWDzuzCmLzgWGw",
         4: "AIzaSyAjOoFpidz5Qt_BEGbku_tcEXpVhIfxZcg",
-        1: "AIzaSyCWHsYAjaXbgalCvWyg6UVlhS4RwwNY3sU"
+        5: "AIzaSyCWHsYAjaXbgalCvWyg6UVlhS4RwwNY3sU"
     }
     API_KEY_COUNTER = 1
 
