@@ -1,11 +1,17 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv(".env")
+
+
 class KeySelector():
     # API Key List
     __API_KEY = {
-        3: "AIzaSyCmOvTsBo_g__NBVQtCOrUQEmbR1KlRcds",
-        2: "AIzaSyC93iswqAWhnEW8M7WJX96IGSYBCCUUZis",
-        1: "AIzaSyA48pQnfHZ8ka43eraiJNWDzuzCmLzgWGw",
-        4: "AIzaSyAjOoFpidz5Qt_BEGbku_tcEXpVhIfxZcg",
-        5: "AIzaSyCWHsYAjaXbgalCvWyg6UVlhS4RwwNY3sU"
+        1: os.environ['API_KEY_1'],
+        2: os.environ['API_KEY_2'],
+        3: os.environ['API_KEY_3'],
+        4: os.environ['API_KEY_4'],
+        5: os.environ['API_KEY_5']
     }
     API_KEY_COUNTER = 1
 

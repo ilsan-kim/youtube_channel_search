@@ -20,7 +20,7 @@ class PyObjectId(ObjectId):
         field_schema.update(type="string")
 
 
-class User(BaseModel):
+class Influencer(BaseModel):
     id: Optional[PyObjectId] = Field(alias='_id')
     channel_title: str
     thumbnail_url: str
@@ -33,3 +33,13 @@ class User(BaseModel):
         json_encoders = {
             ObjectId: str
         }
+
+
+class InfluencerSearcher(BaseModel):
+    keyword: str
+    region: str
+    max_subscriber: int
+    min_subscriber: int
+
+    class Config:
+        orm_mode = True

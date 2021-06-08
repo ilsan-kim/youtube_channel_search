@@ -1,4 +1,9 @@
+import os
+from dotenv import load_dotenv
+
 from pymongo import MongoClient
 
-client = MongoClient('mongodb://localhost:27017/')
+load_dotenv(".env")
+
+client = MongoClient(os.environ['MONGODB_URL'])
 db = client.college
