@@ -15,7 +15,7 @@ async def index():
 
 
 @router.post("/influencer/search", response_model=List[schema.Influencer])
-async def search_influencer(params: schema.InfluencerSearcher):
+def search_influencer(params: schema.InfluencerSearcher):
     searcher = ChannelSearcher(params=params)
     searcher.search_channel_list()
     searcher.search_video_for_channel_id_list()
