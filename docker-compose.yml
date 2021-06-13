@@ -1,0 +1,31 @@
+version: "3.7" 
+
+
+services: 
+  fast-api: 
+    build: ./app 
+    container_name: youtuber_searcher 
+    restart: always 
+    expose: 
+      - 80 
+
+  nginx: 
+    build: ./nginx 
+    container_name: nginx 
+    restart: always 
+    ports: 
+      - 5000:5000
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - type: bind
+        source: ./mongodb
+        target: /mongodb
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: youtuber_searcher
+      MONGO_INITDB_ROOT_PASSWORD: youtuber_searcher
+    ports:
+      - "27017:27017"
