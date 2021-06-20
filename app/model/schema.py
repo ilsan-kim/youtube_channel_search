@@ -26,6 +26,7 @@ class Influencer(BaseModel):
     thumbnail_url: str
     country: str
     subscriber_count: int
+    keyword: str
 
     class Config:
         allow_population_by_field_name = True

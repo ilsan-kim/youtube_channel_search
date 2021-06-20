@@ -50,9 +50,8 @@ class ChannelSearcher():
         return self.__region_code
 
     def get_channel_id_list(self):
-        searched_channel_id_list = list(OrderedDict.fromkeys(self.__channel_id_container))
-        print("searched channel results : ", len(searched_channel_id_list))
-        return searched_channel_id_list
+        self.__channel_id_container = list(OrderedDict.fromkeys(self.__channel_id_container))
+        return self.__channel_id_container
 
     def get_channel_details_list(self):
         searched_channel_details_list = self.__channel_details_container
@@ -76,7 +75,8 @@ class ChannelSearcher():
             page_token = search_func["next_page_token"]
             print(len(self.__channel_id_container))
             count += 1
-            if count == 10 or page_token is None:
+            # 검색량 늘리려면 여기 수정
+            if count == 3 or page_token is None:
                 break
         return
 
@@ -85,7 +85,8 @@ class ChannelSearcher():
     def search_video_for_channel_id_list(self):
         print("search_video_for_channel_id_list : ", self.get_api_key())
         page_token = " "
-        for _ in range(5):
+        # 검색량 늘리려면 여기 수정
+        for _ in range(3):
             print(page_token)
             search_func = get_id_list(keyword=self.keyword,
                                       region_code=self.__region_code,
@@ -101,11 +102,15 @@ class ChannelSearcher():
     @check_key_quote
     def search_channel_detail(self):
         print("search_channel_detail : ", self.get_api_key())
+        # 중복 제거
+        self.get_channel_id_list()
+
         loop_count = ceil(len(self.__channel_id_container)/50)
         count = 0
         for i in range(loop_count):
             ids = self.__channel_id_container[count:count+50]
-            search_func = get_channel_details(min_subscriber=self.min_subscriber,
+            search_func = get_channel_details(keyword=self.keyword,
+                                              min_subscriber=self.min_subscriber,
                                               max_subscriber=self.max_subscriber,
                                               developer_key=self.get_api_key(),
                                               channel_ids_container=ids,
@@ -113,10 +118,10 @@ class ChannelSearcher():
             count += 50
         return self.__channel_details_container
 
-    def insert_influencer_to_db(self):
+    async def insert_influencer_to_db(self):
         col = db['influencer']
         try:
-            col.insert_many(self.__channel_details_container)
+            await col.insert_many(self.__channel_details_container)
         except TypeError:
             print("No data to insert")
         return

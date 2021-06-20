@@ -27,7 +27,7 @@ def get_next_page_token(response):
     return next_page_token
 
 
-def get_channel_metadata(min_subscriber: int, max_subscriber: int, items: list, container: list):
+def get_channel_metadata(keyword: str, min_subscriber: int, max_subscriber: int, items: list, container: list):
     now = datetime.datetime.now()
     # 채널 정보 확인
     for item in items:
@@ -58,6 +58,7 @@ def get_channel_metadata(min_subscriber: int, max_subscriber: int, items: list, 
         engagement_rate = 0
 
         item_detail = {
+            "keyword": keyword,
             "channel_title": channel_title,
             "thumbnail_url": thumbnail_url,
             "country": country,
@@ -92,8 +93,8 @@ def get_id_list(keyword: str, region_code: str, developer_key: str, page_token: 
     return {"type": type,"next_page_token": next_page_token, "searched_items": searched_items}
 
 
-def get_channel_details(min_subscriber: int, max_subscriber: int, developer_key: str,
-                       channel_ids_container: list, metadata_container: list):
+def get_channel_details(keyword: str, min_subscriber: int, max_subscriber: int, developer_key: str,
+                        channel_ids_container: list, metadata_container: list):
     # 채널 아이디 검색하기 위해 str로 변환
     ids = reduce(lambda x, y: x + ', ' + y, channel_ids_container)
 
@@ -107,6 +108,7 @@ def get_channel_details(min_subscriber: int, max_subscriber: int, developer_key:
     response = channel_search_query.execute()
 
     channel_meatadata = get_channel_metadata(
-        items=response['items'], min_subscriber=min_subscriber, max_subscriber=max_subscriber, container=metadata_container
+        keyword=keyword, items=response['items'], min_subscriber=min_subscriber, max_subscriber=max_subscriber,
+        container=metadata_container
     )
     return {"searched_items": channel_meatadata}
