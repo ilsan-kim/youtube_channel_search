@@ -1,4 +1,5 @@
 from functools import reduce
+import datetime
 
 import googleapiclient.discovery
 
@@ -27,6 +28,7 @@ def get_next_page_token(response):
 
 
 def get_channel_metadata(min_subscriber: int, max_subscriber: int, items: list, container: list):
+    now = datetime.datetime.now()
     # 채널 정보 확인
     for item in items:
         # 채널 이름, 아이디, 썸네일
@@ -59,7 +61,8 @@ def get_channel_metadata(min_subscriber: int, max_subscriber: int, items: list, 
             "channel_title": channel_title,
             "thumbnail_url": thumbnail_url,
             "country": country,
-            "subscriber_count": subscriber_count
+            "subscriber_count": subscriber_count,
+            "seached_time": now
         }
         container.append(item_detail)
     return container
