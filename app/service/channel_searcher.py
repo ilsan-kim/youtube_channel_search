@@ -3,8 +3,7 @@ from math import ceil
 
 from retrying import retry
 
-from model import schema
-from service.public_func import (
+from service.search_func import (
     get_id_list, get_channel_details
 )
 from service.decorator_func import check_key_quote

@@ -1,6 +1,7 @@
 # My self
 app/.env
-.idea
+app/.idea
+app/venv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

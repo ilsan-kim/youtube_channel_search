@@ -29,7 +29,7 @@ def get_next_page_token(response):
 
 def get_channel_metadata(keyword: str, min_subscriber: int, max_subscriber: int, items: list, container: list):
     now = datetime.datetime.now()
-    # 채널 정보 확인
+    # 채널 정보 확인g
     for item in items:
         # 채널 이름, 아이디, 썸네일
         channel_title = item['snippet']['title']

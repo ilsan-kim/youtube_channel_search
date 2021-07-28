@@ -17,9 +17,11 @@ h11==0.12.0
 httplib2==0.19.1
 httptools==0.2.0
 idna==2.10
+jose==1.0.0
 motor==2.4.0
 multidict==5.1.0
 packaging==20.9
+passlib==1.7.4
 protobuf==3.17.2
 py==1.10.0
 pyasn1==0.4.8
